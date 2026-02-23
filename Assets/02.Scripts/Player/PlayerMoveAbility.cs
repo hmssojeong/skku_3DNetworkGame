@@ -8,7 +8,8 @@ public class PlayerMoveAbility : MonoBehaviour
     private float _yVeocity = 0f;   
 
     private CharacterController _characterController;
-    private Transform _cameraTransform;
+
+    private Animator _animator;
 
     // 1. 중력을 적용하세요.
     // 2. 스페이스바를 누르면 점프하게 해주세요.
@@ -22,6 +23,7 @@ public class PlayerMoveAbility : MonoBehaviour
     private void Awake()
     {
         _characterController = GetComponent<CharacterController>();
+        _animator = GetComponent<Animator>();
     }
 
     private void Update()
@@ -31,8 +33,10 @@ public class PlayerMoveAbility : MonoBehaviour
 
         Vector3 moveDirection = new Vector3(horizontal, 0f, vertical).normalized;
 
-/*        Vector3 forward = _cameraTransform.forward;*/
+        // 카메라가 바라보는 방향 기준으로 수정하기
+        moveDirection = Camera.main.transform.TransformDirection(moveDirection);
 
+        _animator.SetFloat("Move", moveDirection.magnitude);
 
         // 1. 중력 적용
         if (_characterController.isGrounded)

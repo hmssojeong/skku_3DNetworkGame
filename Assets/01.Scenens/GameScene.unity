@@ -15874,6 +15874,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1130269897290423227, guid: 500f2cc9d9332604e87c9707e2290ad7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1025748181247886517}
+    - targetCorrespondingSourceObject: {fileID: 1130269897290423227, guid: 500f2cc9d9332604e87c9707e2290ad7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1025748181247886518}
   m_SourcePrefab: {fileID: 100100000, guid: 500f2cc9d9332604e87c9707e2290ad7, type: 3}
 --- !u!4 &1025748181247886514 stripped
 Transform:
@@ -15933,6 +15936,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerRotateAbility
   _cameraRoot: {fileID: 1212706514}
   _rotationSpeed: 100
+--- !u!95 &1025748181247886518
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1096049226}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 0308cf4e83cf517488b60af58b290fe0, type: 3}
+  m_Controller: {fileID: 9100000, guid: 21d65c3d6422b4e43925cf6ad4bf607a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
