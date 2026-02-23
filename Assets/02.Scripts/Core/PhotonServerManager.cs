@@ -1,6 +1,7 @@
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using System.Collections.Generic;
 
 public class PhotonServerManager : MonoBehaviourPunCallbacks
 {
@@ -11,7 +12,7 @@ public class PhotonServerManager : MonoBehaviourPunCallbacks
     // - 누군가가 내 방에 들어왔다 등등등..
 
     private string _version = "0.0.1";
-    private string _nickName = "Mongil";
+    private string _nickName = "Sso";
 
     private void Start()
     {
@@ -60,11 +61,32 @@ public class PhotonServerManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         Debug.Log("룸 입장 완료!");
+
+        Debug.Log($"룸: {PhotonNetwork.CurrentRoom.Name}");
+        Debug.Log($"플레이어 인원: {PhotonNetwork.CurrentRoom.PlayerCount}");
+
+        // 룸에 입장한 플레이어 정보
+        Dictionary<int, Player> roomPlayers = PhotonNetwork.CurrentRoom.Players;
+        foreach (KeyValuePair<int, Player> player in roomPlayers)
+        {
+            Debug.Log($"{player.Value.NickName} : {player.Value.ActorNumber}");
+        }
     }
 
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
         Debug.Log($"랜덤방 입장에 실패했습니다: {returnCode} - {message}");
+
+        // 랜덤 룸 입장에 실패하면.. 룸이 하나도 없는 것이니... 룸을 만들자!
+
+        // 룸 옵션 정의
+        RoomOptions roomOptions = new RoomOptions();
+        roomOptions.MaxPlayers = 20; // 룸 최대 접속자 수
+        roomOptions.IsVisible = true; // 로비에서 룸을 보여줄 것인지
+        roomOptions.IsOpen = true; // 룸의 오픈 여부
+
+        // 룸 만들기
+        PhotonNetwork.CreateRoom("Sso's Room", roomOptions);
     }
 
     public override void OnJoinRoomFailed(short returnCode, string message)
