@@ -1,6 +1,7 @@
 using UnityEngine;
+using Photon.Pun;
 
-public class PlayerAbility : MonoBehaviour
+public abstract class PlayerAbility : MonoBehaviourPun
 {
     protected PlayerController _owner {  get; private set; }
 
