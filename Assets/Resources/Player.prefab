@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4752236476104281388}
   - component: {fileID: 5989198063080332864}
   - component: {fileID: 2619793384409213305}
+  - component: {fileID: 7151681766064193115}
   m_Layer: 0
   m_Name: Gauge
   m_TagString: Untagged
@@ -75,6 +76,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7151681766064193115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 39040889269096090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adb30198aa32dd140b5750692dd48104, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Nobi.UiRoundedCorners::Nobi.UiRoundedCorners.ImageWithRoundedCorners
+  radius: 0.02
+  image: {fileID: 2619793384409213305}
 --- !u!1 &122339139843071831
 GameObject:
   m_ObjectHideFlags: 0
@@ -411,6 +426,7 @@ GameObject:
   - component: {fileID: 4819571029185481530}
   - component: {fileID: 3222107360008981725}
   - component: {fileID: 6834237069452828260}
+  - component: {fileID: 7512620902242269561}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -588,6 +604,12 @@ MonoBehaviour:
   - Type: 9
     SynchronizeType: 1
     Name: Attack3
+  - Type: 4
+    SynchronizeType: 0
+    Name: IsDancing
+  - Type: 9
+    SynchronizeType: 0
+    Name: Dance
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
@@ -633,6 +655,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStatusUIAbility
   _healthGauge: {fileID: 2171058792761033941}
   _staminaGauge: {fileID: 2619793384409213305}
+--- !u!114 &7512620902242269561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1130269897290423227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8198a3cde449e9498b9e268021929c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerDanceAbility
 --- !u!1 &1146610695833625225
 GameObject:
   m_ObjectHideFlags: 0
@@ -919,6 +953,7 @@ GameObject:
   - component: {fileID: 739435772136968014}
   - component: {fileID: 38736639762795451}
   - component: {fileID: 6200479882817058986}
+  - component: {fileID: 2107712414405784491}
   m_Layer: 0
   m_Name: Healthbar
   m_TagString: Untagged
@@ -984,6 +1019,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2107712414405784491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1664771588077449852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adb30198aa32dd140b5750692dd48104, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Nobi.UiRoundedCorners::Nobi.UiRoundedCorners.ImageWithRoundedCorners
+  radius: 0.03
+  image: {fileID: 6200479882817058986}
 --- !u!1 &1795758860929192917
 GameObject:
   m_ObjectHideFlags: 0
@@ -1063,6 +1112,7 @@ GameObject:
   - component: {fileID: 303721273873276372}
   - component: {fileID: 2764679595154035414}
   - component: {fileID: 2171058792761033941}
+  - component: {fileID: 4728671765066706352}
   m_Layer: 0
   m_Name: Gauge
   m_TagString: Untagged
@@ -1127,6 +1177,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4728671765066706352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2225597264503762048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adb30198aa32dd140b5750692dd48104, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Nobi.UiRoundedCorners::Nobi.UiRoundedCorners.ImageWithRoundedCorners
+  radius: 0.03
+  image: {fileID: 2171058792761033941}
 --- !u!1 &2271628206687336542
 GameObject:
   m_ObjectHideFlags: 0
@@ -1946,6 +2010,7 @@ GameObject:
   - component: {fileID: 6487811815868525380}
   - component: {fileID: 6139875797810458158}
   - component: {fileID: 7289248003838672218}
+  - component: {fileID: 3623957419843162291}
   m_Layer: 0
   m_Name: Staminabar
   m_TagString: Untagged
@@ -2011,6 +2076,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3623957419843162291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4000197260855712642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adb30198aa32dd140b5750692dd48104, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Nobi.UiRoundedCorners::Nobi.UiRoundedCorners.ImageWithRoundedCorners
+  radius: 0.02
+  image: {fileID: 7289248003838672218}
 --- !u!1 &4109553776694493973
 GameObject:
   m_ObjectHideFlags: 0

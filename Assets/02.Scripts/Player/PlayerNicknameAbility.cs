@@ -4,7 +4,7 @@ public class PlayerNicknameAbility : PlayerAbility
 {
     [SerializeField] private TextMeshProUGUI _nicknameTextUI;
 
-    private void Start()
+private void Start()
     {
         _nicknameTextUI.text = _owner.PhotonView.Owner.NickName;
 
@@ -14,7 +14,7 @@ public class PlayerNicknameAbility : PlayerAbility
         }
         else
         {
-            _nicknameTextUI.color= Color.red;
+            _nicknameTextUI.color = Color.red;
         }
     }
 
