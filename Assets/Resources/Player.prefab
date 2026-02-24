@@ -427,6 +427,7 @@ GameObject:
   - component: {fileID: 3222107360008981725}
   - component: {fileID: 6834237069452828260}
   - component: {fileID: 7512620902242269561}
+  - component: {fileID: 8409208868814149928}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -635,6 +636,7 @@ MonoBehaviour:
     AttackStamina: 2
     JumpMinStamina: 2
     JumpStamina: 2
+    Damage: 20
     MoveSpeed: 5
     RunSpeed: 8
     JumpPower: 2.5
@@ -667,6 +669,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8198a3cde449e9498b9e268021929c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerDanceAbility
+--- !u!114 &8409208868814149928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1130269897290423227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c04e270f17578941b23f96ad9cd7b05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerWeaponAbility
+  _collider: {fileID: 2306960358227658129}
 --- !u!1 &1146610695833625225
 GameObject:
   m_ObjectHideFlags: 0
@@ -3851,12 +3866,8 @@ PrefabInstance:
       value: OHS03Polyart
       objectReference: {fileID: 0}
     - target: {fileID: 8218668140323578366, guid: f0aae4c8b38e02e48a4124483b105340, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 8738464927208897348, guid: f0aae4c8b38e02e48a4124483b105340, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
+      propertyPath: m_TagString
+      value: Weapon
       objectReference: {fileID: 0}
     - target: {fileID: 8738464927208897348, guid: f0aae4c8b38e02e48a4124483b105340, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3901,10 +3912,35 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8218668140323578366, guid: f0aae4c8b38e02e48a4124483b105340, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3009238575708393254}
   m_SourcePrefab: {fileID: 100100000, guid: f0aae4c8b38e02e48a4124483b105340, type: 3}
 --- !u!4 &326498971884529688 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8738464927208897348, guid: f0aae4c8b38e02e48a4124483b105340, type: 3}
+  m_PrefabInstance: {fileID: 9062006165429015388}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1138326283860931234 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8218668140323578366, guid: f0aae4c8b38e02e48a4124483b105340, type: 3}
+  m_PrefabInstance: {fileID: 9062006165429015388}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3009238575708393254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1138326283860931234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5646433ceaab72c4ab78074372d723c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerWeaponHitAbility
+--- !u!65 &2306960358227658129 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 6755767371003762381, guid: f0aae4c8b38e02e48a4124483b105340, type: 3}
   m_PrefabInstance: {fileID: 9062006165429015388}
   m_PrefabAsset: {fileID: 0}
