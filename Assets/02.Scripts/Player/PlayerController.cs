@@ -8,19 +8,45 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour, IPunObservable, IDamageable
 {
     public PhotonView PhotonView;
+    public bool IsDead { get; private set; }
+    private Animator _animator;
+
     public PlayerStat Stat;
 
     private void Awake()
     {
         PhotonView = GetComponent<PhotonView>();
+        _animator = GetComponent<Animator>();
     }
 
+    [PunRPC]
     public void TakeDamage(float damage)
     {
+        if (IsDead) return;
+
         Stat.Health -= damage;
-        Debug.Log("아프다");
-        // todo:
+        Stat.Health = Mathf.Max(0, Stat.Health);
+
+        if (Stat.Health <= 0)
+        {
+            Die();
+        }
     }
+
+    private void Die()
+    {
+        if (IsDead) return;
+        IsDead = true;
+
+        _animator.SetBool("IsDead", true);
+
+        // 이동/공격 등 모든 입력 비활성화
+        GetAbility<PlayerMoveAbility>().enabled = false;
+        GetAbility<PlayerAttackAbility>().enabled = false;
+
+        Debug.Log($"[PlayerController] {gameObject.name} 사망!");
+    }
+
 
     // 데이터 동기화를 위한 데이터 읽기(전송), 쓰기(수신) 메서드
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

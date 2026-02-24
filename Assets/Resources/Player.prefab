@@ -537,6 +537,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fe6cfbc75283364a9388ca556ad9733, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAttackAbility
+  _animationSequenceType: 0
 --- !u!114 &1075828142287641437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -597,13 +598,13 @@ MonoBehaviour:
     SynchronizeType: 2
     Name: Move
   - Type: 9
-    SynchronizeType: 1
+    SynchronizeType: 0
     Name: Attack1
   - Type: 9
-    SynchronizeType: 1
+    SynchronizeType: 0
     Name: Attack2
   - Type: 9
-    SynchronizeType: 1
+    SynchronizeType: 0
     Name: Attack3
   - Type: 4
     SynchronizeType: 0
@@ -611,6 +612,12 @@ MonoBehaviour:
   - Type: 9
     SynchronizeType: 0
     Name: Dance
+  - Type: 4
+    SynchronizeType: 0
+    Name: IsDead
+  - Type: 4
+    SynchronizeType: 0
+    Name: IsHipHopDancing
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
@@ -2544,6 +2551,7 @@ GameObject:
   m_Component:
   - component: {fileID: 338027118331306733}
   - component: {fileID: 2852939763610867051}
+  - component: {fileID: 2541222614283286406}
   m_Layer: 7
   m_Name: MinimapIcon_Player
   m_TagString: Untagged
@@ -2625,6 +2633,22 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &2541222614283286406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5452874356778737447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1525287b570bfa044ac4aa1bf0da4fc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MinimapIconSetup
+  _playerSprite: {fileID: 21300000, guid: 9f4eccb90cff7974ca4ea343e0617afd, type: 3}
+  _enemySprite: {fileID: 21300000, guid: d15ebb2db7d2aff4b910354462971705, type: 3}
+  _playerColor: {r: 0, g: 0, b: 1, a: 1}
+  _enemyColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &5624293736494080090
 GameObject:
   m_ObjectHideFlags: 0
