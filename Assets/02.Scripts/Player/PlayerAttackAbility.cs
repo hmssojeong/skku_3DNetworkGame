@@ -22,6 +22,15 @@ public class PlayerAttackAbility : PlayerAbility
 
         if(Input.GetMouseButton(0) && _attackTimer >= (1f / _owner.Stat.AttackCoolTime))
         {
+            if (_owner.Stat.Stamina >= _owner.Stat.AttackMinStamina)
+            {
+                _owner.Stat.Stamina -= _owner.Stat.AttackStamina;
+            }
+            else
+            {
+                return;
+            }
+
             _attackTimer = 0f;
 
             _animator.SetTrigger($"Attack{Random.Range(1,4)}");

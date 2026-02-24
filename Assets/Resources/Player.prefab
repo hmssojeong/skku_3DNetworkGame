@@ -541,6 +541,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 3018666589631296831}
   - {fileID: 4819571029185481530}
+  - {fileID: 3222107360008981725}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -606,8 +607,12 @@ MonoBehaviour:
   Stat:
     MaxHealth: 100
     Health: 100
-    MaxStamina: 5
-    Stamina: 5
+    MaxStamina: 10
+    Stamina: 10
+    AttackMinStamina: 4
+    AttackStamina: 2
+    JumpMinStamina: 2
+    JumpStamina: 2
     MoveSpeed: 5
     RunSpeed: 8
     JumpPower: 2.5
@@ -1436,8 +1441,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uB2C9\uB124\uC784"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c21d11c872539f545b5cdc0071e08e28, type: 2}
-  m_sharedMaterial: {fileID: 1942929733937747189, guid: c21d11c872539f545b5cdc0071e08e28, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2335fcee9da8e854e8f480c04301e193, type: 2}
+  m_sharedMaterial: {fileID: 1896025634967958983, guid: 2335fcee9da8e854e8f480c04301e193, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2994,6 +2999,7 @@ GameObject:
   - component: {fileID: 8570250231493103577}
   - component: {fileID: 4615224862201697747}
   - component: {fileID: 1763780891775830672}
+  - component: {fileID: 2714684092228887859}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -3098,6 +3104,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerNicknameAbility
   _nicknameTextUI: {fileID: 6653187283898923519}
+--- !u!114 &2714684092228887859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7674842564740739263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2617c71e0f4af74d80ac10317d70076, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerStatusUIAbility
+  _healthGauge: {fileID: 2171058792761033941}
+  _staminaGauge: {fileID: 2619793384409213305}
 --- !u!1 &7841262503120907434
 GameObject:
   m_ObjectHideFlags: 0

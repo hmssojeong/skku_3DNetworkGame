@@ -23,7 +23,3 @@ public class PlayerNicknameAbility : PlayerAbility
         transform.forward = Camera.main.transform.forward;
     }
 }
-
-// 1. 체력과 스태미나 UI를 구성하세요.
-// 2. Shift 키를 누르고 있는 동안 스태미나가 있다면 이동속도 up!
-// 3. 아니라면 스태미나를 회복해주세요.
