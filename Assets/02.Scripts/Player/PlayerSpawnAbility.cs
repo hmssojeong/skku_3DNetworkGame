@@ -27,7 +27,6 @@ private void Start()
             }
             else
             {
-                // 다른 플레이어의 MinimapCamera는 끌서 레더링 추돉 방지
                 minimapCamTransform.gameObject.SetActive(false);
             }
         }
