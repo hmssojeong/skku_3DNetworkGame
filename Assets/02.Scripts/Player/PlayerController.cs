@@ -16,12 +16,13 @@ public class PlayerController : MonoBehaviour, IPunObservable, IDamageable
     }
 
     [PunRPC]
-    public void TakeDamage(float damage)
+    public void TakeDamage(float damage, Vector3 attackerPosition)
     {
         var death = GetAbility<PlayerDeathAbility>();
         if (death.IsDead) return;
 
         Stat.Health = Mathf.Max(0, Stat.Health - damage);
+        GetAbility<PlayerHitEffectAbility>().OnHit(attackerPosition);
 
         if (Stat.Health <= 0)
         {
