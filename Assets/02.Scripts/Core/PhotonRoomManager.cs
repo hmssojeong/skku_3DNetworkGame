@@ -14,6 +14,7 @@ public class PhotonRoomManager : MonoBehaviourPunCallbacks
     public event Action OnDataChanged;           // 룸 정보가 바뀌었을때
     public event Action<Player> OnPlayerEnter;   // 플레이거가 들어왔을떄
     public event Action<Player> OnPlayerLeft;    // 플레이어가 나갔을때
+    public event Action<string, string> OnPlayerDeathed; // 플레이어가 죽었을때
 
     private void Awake()
     {
@@ -45,5 +46,13 @@ public class PhotonRoomManager : MonoBehaviourPunCallbacks
     {
         OnDataChanged?.Invoke();
         OnPlayerLeft?.Invoke(player);
+    }
+
+    public void OnPlayerDeath(int attackerActorNumber)
+    {
+        string attackerNickName = _room.Players[attackerActorNumber].NickName;
+        string victimNickName = PhotonNetwork.LocalPlayer.NickName;
+
+        OnPlayerDeathed?.Invoke(attackerNickName, victimNickName);
     }
 }

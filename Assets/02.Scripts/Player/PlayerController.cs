@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour, IPunObservable, IDamageable
     }
 
     [PunRPC]
-    public void TakeDamage(float damage, Vector3 attackerPosition)
+    public void TakeDamage(float damage, Vector3 attackerPosition, int attackerActorNumber)
     {
         var death = GetAbility<PlayerDeathAbility>();
         if (death.IsDead) return;
@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour, IPunObservable, IDamageable
         if (Stat.Health <= 0)
         {
             death.Die();
+            PhotonRoomManager.Instance.OnPlayerDeath(attackerActorNumber);
         }
     }
 

@@ -2,5 +2,5 @@ using UnityEngine;
 
 public interface IDamageable
 {
-    public void TakeDamage(float damage, Vector3 attackerPosition);
+    public void TakeDamage(float damage, Vector3 attackerPosition, int attackerActorNumber);
 }
