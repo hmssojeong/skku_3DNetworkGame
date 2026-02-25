@@ -15,7 +15,13 @@ public class UIMinimap : MonoBehaviour
         _textMapName.text = SceneManager.GetActiveScene().name;
     }
 
-    public void ZoomIn()
+    public void SetMinimapCamera(Camera cam)
+    {
+        _minimapCamera = cam;
+    }
+
+    
+public void ZoomIn()
     {
         // 카메라의 orthographicSize를 감소시켜 카메라에 보이는 사물 크기 확대
         _minimapCamera.orthographicSize = Mathf.Max(_minimapCamera.orthographicSize - _zoomOneStep, _zoomMin);

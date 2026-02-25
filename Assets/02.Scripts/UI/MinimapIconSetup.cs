@@ -9,21 +9,22 @@ public class MinimapIconSetup : MonoBehaviour
     [SerializeField] private Color _enemyColor = Color.red;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-void Start()
+private void Start()
     {
         PhotonView photonView = GetComponentInParent<PhotonView>();
         SpriteRenderer icon = GetComponent<SpriteRenderer>();
 
         if (photonView == null || icon == null) return;
 
+        // IsMine은 Photon이 완전히 초기화된 뒤에 정확하므로 여기서 판단해도 안전
         if (photonView.IsMine)
         {
-            icon.sprite = _playerSprite;  // 나 -> 파란 아이콘
+            icon.sprite = _playerSprite;
             icon.color = _playerColor;
         }
         else
         {
-            icon.sprite = _enemySprite;   // 상대방 -> 빨간 아이콘
+            icon.sprite = _enemySprite;
             icon.color = _enemyColor;
         }
     }

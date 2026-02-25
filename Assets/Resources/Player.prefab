@@ -428,6 +428,8 @@ GameObject:
   - component: {fileID: 6834237069452828260}
   - component: {fileID: 7512620902242269561}
   - component: {fileID: 8409208868814149928}
+  - component: {fileID: 5447936025979292064}
+  - component: {fileID: 6830425645493111172}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -690,6 +692,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerWeaponAbility
   _collider: {fileID: 2306960358227658129}
+--- !u!114 &5447936025979292064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1130269897290423227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26c6109086291224fb11da6b3191d069, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerDeathAbility
+--- !u!114 &6830425645493111172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1130269897290423227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 552a9d943e0ebbe4795a885ba27ccc06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerSpawnAbility
+  _spawnPoints:
+  - {fileID: 2176179420490172398, guid: 047a36c4e0ba8014eb8a1a3900d5e66e, type: 3}
+  - {fileID: 1263186648270089860, guid: 5c999ddb523f17b41899bb64ed355339, type: 3}
+  - {fileID: 1329778773712204691, guid: 184f21e20322f734cb885d075e75a0aa, type: 3}
+  - {fileID: 2105854223561337205, guid: 7394bc263c76d4c42ac6ac87d7ee294c, type: 3}
+  _respawnTime: 5
 --- !u!1 &1146610695833625225
 GameObject:
   m_ObjectHideFlags: 0
