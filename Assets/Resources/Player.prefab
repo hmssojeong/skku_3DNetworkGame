@@ -433,6 +433,7 @@ GameObject:
   - component: {fileID: 1133949798006734480}
   - component: {fileID: 4469514000716921313}
   - component: {fileID: 3655939215120467511}
+  - component: {fileID: 7554032694265037002}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -566,6 +567,7 @@ MonoBehaviour:
   - {fileID: 3018666589631296831}
   - {fileID: 4819571029185481530}
   - {fileID: 3222107360008981725}
+  - {fileID: 7554032694265037002}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -656,7 +658,6 @@ MonoBehaviour:
     RotationSpeed: 200
     AttackSpeed: 0.6
     AttackCoolTime: 0.6
-  Score: 0
 --- !u!114 &6834237069452828260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -806,6 +807,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19305645a63916547a26b55ea321e418, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHitEffectAbility
+--- !u!114 &7554032694265037002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1130269897290423227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49ffd537205afe54cb3ebe0de47d908d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerScoreAbility
 --- !u!1 &1146610695833625225
 GameObject:
   m_ObjectHideFlags: 0

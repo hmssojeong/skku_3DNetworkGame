@@ -26,18 +26,15 @@ public class PlayerDeathAbility : PlayerAbility
     }
 
 
-    public void Die()
+public void Die()
     {
         if (IsDead) return;
         IsDead = true;
 
         _animator.SetBool("IsDead", true);
 
-        // 이동/공격 등 모든 입력 비활성화
         _owner.GetAbility<PlayerMoveAbility>().enabled = false;
         _owner.GetAbility<PlayerAttackAbility>().enabled = false;
-
-        Debug.Log($"[PlayerController] {gameObject.name} 사망!");
 
         _owner.GetAbility<PlayerSpawnAbility>().RespawnAfterDelay();
     }

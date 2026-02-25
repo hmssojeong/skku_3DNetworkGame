@@ -10,8 +10,6 @@ public class PlayerController : MonoBehaviour, IPunObservable, IDamageable
     public PhotonView PhotonView;
     public PlayerStat Stat;
 
-    public int Score = 0;
-
     private void Awake()
     {
         PhotonView = GetComponent<PhotonView>();
@@ -42,13 +40,18 @@ public class PlayerController : MonoBehaviour, IPunObservable, IDamageable
         }
     }
 
-    private void MakeScoreItems()
+private void MakeScoreItems()
     {
-        int randomCount = UnityEngine.Random.Range(3, 5);
+        int count = UnityEngine.Random.Range(3, 6);
 
-        for (int i = 0; i < randomCount; i++)
+        for (int i = 0; i < count; i++)
         {
-            PhotonNetwork.Instantiate("ScoreItem", transform.position, Quaternion.identity);
+            Vector3 offset = new Vector3(
+                UnityEngine.Random.Range(-1.5f, 1.5f),
+                0.5f,
+                UnityEngine.Random.Range(-1.5f, 1.5f)
+            );
+            PhotonNetwork.Instantiate("ScoreItem", transform.position + offset, Quaternion.identity);
         }
     }
 
