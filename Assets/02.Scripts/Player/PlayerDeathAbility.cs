@@ -4,8 +4,8 @@ public class PlayerDeathAbility : PlayerAbility
 {
     [SerializeField] private float _fallDeathY = -10f; // 이 Y값 이하로 떨어지면 낙사
 
-    
-public bool IsDead { get; private set; }
+
+    public bool IsDead { get; private set; }
     private Animator _animator;
 
     protected override void Awake()
@@ -25,8 +25,8 @@ public bool IsDead { get; private set; }
         }
     }
 
-    
-public void Die()
+
+    public void Die()
     {
         if (IsDead) return;
         IsDead = true;
@@ -42,7 +42,7 @@ public void Die()
         _owner.GetAbility<PlayerSpawnAbility>().RespawnAfterDelay();
     }
 
-public void Revive()
+    public void Revive()
     {
         IsDead = false;
         _owner.Stat.Health = _owner.Stat.MaxHealth;
@@ -54,4 +54,5 @@ public void Revive()
         _owner.GetAbility<PlayerMoveAbility>().enabled = true;
         _owner.GetAbility<PlayerAttackAbility>().enabled = true;
     }
+
 }

@@ -656,6 +656,7 @@ MonoBehaviour:
     RotationSpeed: 200
     AttackSpeed: 0.6
     AttackCoolTime: 0.6
+  Score: 0
 --- !u!114 &6834237069452828260
 MonoBehaviour:
   m_ObjectHideFlags: 0

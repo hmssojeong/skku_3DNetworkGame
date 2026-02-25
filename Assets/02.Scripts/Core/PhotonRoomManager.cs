@@ -48,10 +48,10 @@ public class PhotonRoomManager : MonoBehaviourPunCallbacks
         OnPlayerLeft?.Invoke(player);
     }
 
-    public void OnPlayerDeath(int attackerActorNumber)
+    public void OnPlayerDeath(int attackerActorNumber, int victimActorNumber)
     {
         string attackerNickName = _room.Players[attackerActorNumber].NickName;
-        string victimNickName = PhotonNetwork.LocalPlayer.NickName;
+        string victimNickName = _room.Players[victimActorNumber].NickName;
 
         OnPlayerDeathed?.Invoke(attackerNickName, victimNickName);
     }
