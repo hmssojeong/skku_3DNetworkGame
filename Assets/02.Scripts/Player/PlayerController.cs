@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour, IPunObservable, IDamageable
     public PhotonView PhotonView;
     public PlayerStat Stat;
 
+    public int Score;
+
     private void Awake()
     {
         PhotonView = GetComponent<PhotonView>();
@@ -28,8 +30,6 @@ public class PlayerController : MonoBehaviour, IPunObservable, IDamageable
         {
             death.Die();
 
-            // 이 RPC는 피격당한 플레이어(victim)에서 실행되므로
-            // victimActorNumber = 이 PhotonView의 주인
             int victimActorNumber = PhotonView.Owner.ActorNumber;
             PhotonRoomManager.Instance.OnPlayerDeath(attackerActorNumber, victimActorNumber);
 

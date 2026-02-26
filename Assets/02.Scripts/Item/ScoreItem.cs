@@ -8,11 +8,10 @@ public class ScoreItem : MonoBehaviourPun
     private bool _isCollected = false;
     private float _spawnTime;
 
-private void Awake()
+    private void Awake()
     {
         _spawnTime = Time.time;
 
-        // 스폰 직후 랜덤 방향으로 힘을 가해서 튀어오르게
         var rb = GetComponent<Rigidbody>();
         if (rb != null)
         {
@@ -25,7 +24,7 @@ private void Awake()
         }
     }
 
-private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (_isCollected) return;
 
@@ -33,17 +32,11 @@ private void OnTriggerEnter(Collider other)
         if (Time.time - _spawnTime < _collectDelay) return;
 
         var player = other.GetComponentInParent<PlayerController>();
-        if (player == null)
-        {
-            return;
-        }
+        if (player == null) return;
 
         if (!player.PhotonView.IsMine) return;
 
-        if (photonView.Owner == player.PhotonView.Owner)
-        {
-            return;
-        }
+        if (photonView.Owner == player.PhotonView.Owner) return;
 
         _isCollected = true;
         photonView.RPC(nameof(RPC_Collect), RpcTarget.AllViaServer, player.PhotonView.Owner.ActorNumber);
