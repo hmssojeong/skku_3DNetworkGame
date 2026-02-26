@@ -8,9 +8,21 @@ public class ScoreItem : MonoBehaviourPun
     private bool _isCollected = false;
     private float _spawnTime;
 
-    private void Awake()
+private void Awake()
     {
         _spawnTime = Time.time;
+
+        // 스폰 직후 랜덤 방향으로 힘을 가해서 튀어오르게
+        var rb = GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            Vector3 randomDir = new Vector3(
+                Random.Range(-1f, 1f),
+                1f,
+                Random.Range(-1f, 1f)
+            ).normalized;
+            rb.AddForce(randomDir * 4f, ForceMode.Impulse);
+        }
     }
 
 private void OnTriggerEnter(Collider other)

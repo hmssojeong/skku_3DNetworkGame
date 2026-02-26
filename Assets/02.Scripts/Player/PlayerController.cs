@@ -35,23 +35,8 @@ public class PlayerController : MonoBehaviour, IPunObservable, IDamageable
 
             if (PhotonView.IsMine)
             {
-                MakeScoreItems();
+                ItemObjectFactory.Instance.RequestMakeScoreItmes(transform.position + new Vector3(0, 1, 0));
             }
-        }
-    }
-
-private void MakeScoreItems()
-    {
-        int count = UnityEngine.Random.Range(3, 6);
-
-        for (int i = 0; i < count; i++)
-        {
-            Vector3 offset = new Vector3(
-                UnityEngine.Random.Range(-1.5f, 1.5f),
-                0.5f,
-                UnityEngine.Random.Range(-1.5f, 1.5f)
-            );
-            PhotonNetwork.Instantiate("ScoreItem", transform.position + offset, Quaternion.identity);
         }
     }
 
