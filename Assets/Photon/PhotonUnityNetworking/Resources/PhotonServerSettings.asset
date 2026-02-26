@@ -39,6 +39,15 @@ MonoBehaviour:
   - DestroySpaceship
   - Fire
   - RespawnSpaceship
+  - PlayAttackAnimation
+  - TakeDamage
+  - SetDanceState
+  - SetHipHopDanceState
+  - RPCAddScore
+  - RPC_AddScore
+  - RPC_Collect
+  - MakeScoreItems
+  - Delete
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
