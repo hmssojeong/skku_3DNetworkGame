@@ -28,18 +28,23 @@ public class ScoreItem : MonoBehaviourPun
     {
         if (_isCollected) return;
 
-        // 스폰 직후 일정 시간은 수집 불가 (스폰되자마자 즉시 먹히는 버그 방지)
-        if (Time.time - _spawnTime < _collectDelay) return;
-
         var player = other.GetComponentInParent<PlayerController>();
         if (player == null) return;
+       
 
-        if (!player.PhotonView.IsMine) return;
+       /* if (!player.PhotonView.IsMine) return;
 
-        if (photonView.Owner == player.PhotonView.Owner) return;
+        
+        if (photonView.Owner == player.PhotonView.Owner) return;*/
+       
+
+
 
         _isCollected = true;
-        photonView.RPC(nameof(RPC_Collect), RpcTarget.AllViaServer, player.PhotonView.Owner.ActorNumber);
+        //photonView.RPC(nameof(RPC_Collect), RpcTarget.AllViaServer, player.PhotonView.Owner.ActorNumber);
+        ItemObjectFactory.Instance.RequestDelete(photonView.ViewID);
+
+
     }
 
     [PunRPC]
@@ -60,9 +65,11 @@ public class ScoreItem : MonoBehaviourPun
             }
         }
 
-        if (photonView.IsMine || PhotonNetwork.IsMasterClient)
+        /*if (photonView.IsMine || PhotonNetwork.IsMasterClient)
         {
             PhotonNetwork.Destroy(gameObject);
-        }
+        }*/
+
+        ItemObjectFactory.Instance.RequestDelete(photonView.ViewID);
     }
 }

@@ -47,7 +47,7 @@ public void RequestMakeScoreItmes(Vector3 makePosition)
         }
         else
         {
-            _photonView.RPC(nameof(Delete),RpcTarget.MasterClient);
+            _photonView.RPC(nameof(Delete),RpcTarget.MasterClient, viewId);
         }
     }
 
