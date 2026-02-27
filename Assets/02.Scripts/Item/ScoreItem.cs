@@ -32,13 +32,8 @@ public class ScoreItem : MonoBehaviourPun
         if (player == null) return;
        
 
-       /* if (!player.PhotonView.IsMine) return;
-
-        
-        if (photonView.Owner == player.PhotonView.Owner) return;*/
-       
-
-
+        if (!player.PhotonView.IsMine) return;
+        if (player.GetAbility<PlayerDeathAbility>().IsDead) return;
 
         _isCollected = true;
         //photonView.RPC(nameof(RPC_Collect), RpcTarget.AllViaServer, player.PhotonView.Owner.ActorNumber);

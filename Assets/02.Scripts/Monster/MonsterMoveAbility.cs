@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class MonsterAbility : MonoBehaviour
+public class MonsterMoveAbility : MonoBehaviour
 {
     [SerializeField] private float _moveSpeed;
 }

@@ -24,7 +24,7 @@ public class PlayerAttackAbility : PlayerAbility
 
         if (Input.GetMouseButton(0) && _attackTimer >= _owner.Stat.AttackSpeed)
         {
-            if (_owner.Stat.Stamina >= _owner.Stat.AttackMinStamina)
+            if (_owner.Stat.Stamina >= _owner.Stat.AttackStamina)
             {
                 _owner.Stat.Stamina -= _owner.Stat.AttackStamina;
             }

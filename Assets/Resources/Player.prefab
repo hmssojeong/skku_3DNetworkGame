@@ -647,9 +647,7 @@ MonoBehaviour:
     Health: 100
     MaxStamina: 10
     Stamina: 10
-    AttackMinStamina: 4
     AttackStamina: 2
-    JumpMinStamina: 2
     JumpStamina: 2
     Damage: 20
     MoveSpeed: 5

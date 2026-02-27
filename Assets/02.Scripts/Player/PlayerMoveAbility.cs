@@ -44,7 +44,7 @@ public class PlayerMoveAbility : PlayerAbility
 
         if (Input.GetKey(KeyCode.Space) && _characterController.isGrounded)
         {
-            if(_owner.Stat.Stamina >= _owner.Stat.JumpMinStamina)
+            if(_owner.Stat.Stamina >= _owner.Stat.JumpStamina)
             {
                 _owner.Stat.Stamina -= _owner.Stat.JumpStamina;
             }
