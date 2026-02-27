@@ -39,32 +39,8 @@ public class ScoreItem : MonoBehaviourPun
         //photonView.RPC(nameof(RPC_Collect), RpcTarget.AllViaServer, player.PhotonView.Owner.ActorNumber);
         ItemObjectFactory.Instance.RequestDelete(photonView.ViewID);
 
+        player.GetAbility<PlayerScoreAbility>().AddScore(1);
+        Debug.Log("점수추가");
 
-    }
-
-    [PunRPC]
-    private void RPC_Collect(int collectorActorNumber)
-    {
-        _isCollected = true;
-
-        foreach (var player in FindObjectsOfType<PlayerController>())
-        {
-            if (player.PhotonView.Owner.ActorNumber == collectorActorNumber)
-            {
-                if (player.PhotonView.IsMine)
-                {
-                    Debug.Log($"[ScoreItem] 점수 추가 → {player.gameObject.name}");
-                    player.GetAbility<PlayerScoreAbility>().AddScore(1);
-                }
-                break;
-            }
-        }
-
-        /*if (photonView.IsMine || PhotonNetwork.IsMasterClient)
-        {
-            PhotonNetwork.Destroy(gameObject);
-        }*/
-
-        ItemObjectFactory.Instance.RequestDelete(photonView.ViewID);
     }
 }
