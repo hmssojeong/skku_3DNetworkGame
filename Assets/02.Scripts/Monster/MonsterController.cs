@@ -85,7 +85,7 @@ public class MonsterController : MonoBehaviour
 
     private void Idle()
     {
-        _animator.SetTrigger("Idle");
+       // _animator.SetTrigger("Idle");
     }
 
     private void Trace()
@@ -194,12 +194,17 @@ public class MonsterController : MonoBehaviour
 
     private void Hit()
     {
+        if (State == EMonsterState.Death) return;
+
+        State = EMonsterState.Hit;
         _animator.SetTrigger("Hit");
 
     }
 
     private void Death()
     {
+        State = EMonsterState.Death;
         _animator.SetTrigger("Death");
+        _agent.isStopped = true;
     }
 }
