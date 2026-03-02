@@ -8,6 +8,7 @@ public class MonsterController : MonoBehaviour
 { 
     [SerializeField] private float _detectDistance = 5f;
     [SerializeField] private float _attackDistance = 2f;
+    [SerializeField] private float _returnDistance = 15f;
 
     [SerializeField] private float _attackPower = 2f;
     [SerializeField] private float _attackTimer = 0;
@@ -15,13 +16,16 @@ public class MonsterController : MonoBehaviour
 
     [SerializeField] private GameObject _player;
 
-    private float _patrolRadius = 3f;
+    private float _patrolRadius = 5f;
     private float _patrolNearby = 2f;
+    private float _patrolDelay = 3f;
+    private float _patrolDelayTime = 0f;
+    private bool _isWaiting = false;
 
     private Vector3 _originPos;
     private int _currentPatrolIndex = 0;
 
-    List<Vector3> _monsterPatrolPoint;
+    private List<Vector3> _monsterPatrolPoints = new List<Vector3>();
 
     public EMonsterState State = EMonsterState.Idle;
 
@@ -31,11 +35,22 @@ public class MonsterController : MonoBehaviour
     private void Start()
     {
         _animator = GetComponent<Animator>();
+        _agent = GetComponent<NavMeshAgent>();
+        _originPos = transform.position;
+
+        if(_player == null)
+        {
+            _player = GameObject.FindGameObjectWithTag("Player");
+        }
+
         InitializePatrol();
+        State = EMonsterState.Patrol;
     }
 
     private void Update()
     {
+        _animator.SetFloat("Move", _agent.velocity.magnitude);
+
         switch(State)
         {
             case EMonsterState.Idle:
@@ -75,66 +90,76 @@ public class MonsterController : MonoBehaviour
 
     private void Trace()
     {
-        float move = _agent.velocity.magnitude;
-        _animator.SetFloat("Move", move);
+        float distanceToPlayer = Vector3.Distance(transform.position, _player.transform.position);
 
-        float distance = Vector3.Distance(_player.transform.position, transform.position);
+        if (distanceToPlayer <= _attackDistance)
+        {
+            State = EMonsterState.Attack;
+            return;
+        }
 
-        if (distance > _detectDistance)
+        if (distanceToPlayer > _returnDistance)
         {
             State = EMonsterState.Comeback;
+            return;
         }
+
+        _agent.SetDestination(_player.transform.position);
     }
 
     private void Patrol()
     {
-        float distance = Vector3.Distance(transform.position, _player.transform.position);
+        float distanceToPlayer = Vector3.Distance(transform.position, _player.transform.position);
 
-        if (distance <= _detectDistance)
+        if (distanceToPlayer <= _detectDistance)
         {
+            _isWaiting = false;
             State = EMonsterState.Trace;
+            return;
         }
+
+        if(!_agent.pathPending && _agent.remainingDistance <= _agent.stoppingDistance)
+        {
+            if (!_isWaiting)
+            {
+                _isWaiting = true;
+                _patrolDelayTime = 0f;
+            }
+
+            _patrolDelayTime += Time.deltaTime;
+            if (_patrolDelayTime >= _patrolDelay)
+            {
+                _isWaiting = false;
+                MoveToNextPatrolPoint();
+            }
+        }
+    }
+
+    private void MoveToNextPatrolPoint()
+    {
+        if (_monsterPatrolPoints.Count == 0) return;
+        _agent.SetDestination(_monsterPatrolPoints[_currentPatrolIndex]);
+        _currentPatrolIndex = (_currentPatrolIndex + 1) % _monsterPatrolPoints.Count;
     }
 
     private void InitializePatrol()
     {
-        List<Vector3> _possiblePatrolPoint = new List<Vector3>
+        for (int i = 0; i < 5; i++)
         {
-            // x 좌우 z 앞뒤
-            new Vector3(0,0,0),
-            new Vector3(_patrolRadius, 0, _patrolRadius),
-            new Vector3(-_patrolRadius, 0, -_patrolRadius),
-            new Vector3(_patrolRadius, 0, -_patrolRadius),
-            new Vector3(-_patrolRadius, 0, _patrolRadius),
-            new Vector3(_patrolRadius * _patrolNearby, 0, 0),
-            new Vector3(-_patrolRadius * _patrolNearby, 0, 0),
-            new Vector3(0, 0, _patrolRadius * _patrolNearby),
-            new Vector3(0, 0, -_patrolRadius * _patrolNearby),
-
-        };
-
-        _monsterPatrolPoint = new List<Vector3>();
-        List<Vector3> possiblePointCopy = new List<Vector3>();
-
-        for (int i = 0; i < _monsterPatrolPoint.Count; i++)
-        {
-            int randomIndex = Random.Range(0, _monsterPatrolPoint.Count);
-            Vector3 worldPosition = _originPos + possiblePointCopy[randomIndex];
-            _monsterPatrolPoint.Add(worldPosition);
-            possiblePointCopy.RemoveAt(randomIndex);
+            Vector3 randomPoint = _originPos + new Vector3(
+                Random.Range(-_patrolRadius, _patrolRadius),
+                0,
+                Random.Range(-_patrolRadius, _patrolRadius)
+            );
+            _monsterPatrolPoints.Add(randomPoint);
         }
-
-        _currentPatrolIndex = 0;
     }
 
     private void Comeback()
     {
-        // _monsterPatrolPoint[0] 이곳으로 돌아오기
+        _agent.SetDestination(_originPos);
 
-        float move = _agent.velocity.magnitude;
-        _animator.SetFloat("Move", move);
-
-        if (transform.position == _monsterPatrolPoint[0])
+        if (!_agent.pathPending && _agent.remainingDistance <= _agent.stoppingDistance)
         {
             State = EMonsterState.Patrol;
         }
@@ -142,29 +167,28 @@ public class MonsterController : MonoBehaviour
 
     private void Attack()
     {
-        float distance = Vector3.Distance(transform.position, _player.transform.position);
+        _agent.ResetPath();
 
-        if(distance <= _attackDistance)
-        {
-            State = EMonsterState.Attack;
-            //TakeDamage(1,transform.position, _attackPower);
-            _animator.SetTrigger("Attack");
+        float distanceToPlayer = Vector3.Distance(transform.position, _player.transform.position);
 
-            _attackTimer += Time.deltaTime;
-        }
-        else
+        if (distanceToPlayer > _attackDistance)
         {
             State = EMonsterState.Trace;
-
+            return;
         }
-        
-        _attackTimer += Time.deltaTime;
-        if (_attackTimer > _attackSpeed)
-        {
-            _attackTimer = 0;
 
-            //TakeDamage(1,transform.position, _attackPower);
-            _animator.SetTrigger("Attack");          
+        Vector3 direction = (_player.transform.position - transform.position).normalized;
+        if (direction != Vector3.zero)
+        {
+            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+        }
+
+        _attackTimer += Time.deltaTime;
+        if (_attackTimer >= _attackSpeed)
+        {
+            _animator.SetTrigger("Attack");
+            _attackTimer = 0f;
         }
     }
 
