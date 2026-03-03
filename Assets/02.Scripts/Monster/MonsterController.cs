@@ -116,6 +116,7 @@ public class MonsterController : MonoBehaviour
         if (distanceToPlayer <= _attackDistance)
         {
             State = EMonsterState.Attack;
+            _attackTimer = _attackSpeed; // Attack 진입 시 즉시 공격 발동
             return;
         }
 
