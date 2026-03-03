@@ -39,7 +39,7 @@ public class ScoreItem : MonoBehaviourPun
         //photonView.RPC(nameof(RPC_Collect), RpcTarget.AllViaServer, player.PhotonView.Owner.ActorNumber);
         ItemObjectFactory.Instance.RequestDelete(photonView.ViewID);
 
-        player.GetAbility<PlayerScoreAbility>().AddScore(1);
+        player.GetAbility<PlayerScoreAbility>().AddScore(500);
         Debug.Log("점수추가");
 
     }

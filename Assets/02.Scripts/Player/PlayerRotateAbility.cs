@@ -14,7 +14,7 @@ public class PlayerRotateAbility : PlayerAbility
         // 내꺼가 아니면 건들지 않는다!
         if (!_owner.PhotonView.IsMine) return;
 
-        // Cursor.lockState = CursorLockMode.Locked; //마우스 커서 위치 고정
+        Cursor.lockState = CursorLockMode.Locked; //마우스 커서 위치 고정
 
         CinemachineCamera vcam = GameObject.Find("FollowCamera").GetComponent<CinemachineCamera>();
         vcam.Follow = CameraRoot.transform;

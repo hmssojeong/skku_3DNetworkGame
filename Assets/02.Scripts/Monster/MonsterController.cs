@@ -15,7 +15,6 @@ public class MonsterController : MonoBehaviour
     [SerializeField] private GameObject _player;
 
     private float _patrolRadius = 5f;
-    private float _patrolNearby = 2f;
     private float _patrolDelay = 3f;
     private float _patrolDelayTime = 0f;
     private bool _isWaiting = false;
@@ -116,7 +115,7 @@ public class MonsterController : MonoBehaviour
         if (distanceToPlayer <= _attackDistance)
         {
             State = EMonsterState.Attack;
-            _attackTimer = _attackSpeed; // Attack 진입 시 즉시 공격 발동
+            _attackTimer = _attackSpeed;
             return;
         }
 

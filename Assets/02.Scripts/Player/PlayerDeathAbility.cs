@@ -26,7 +26,7 @@ public class PlayerDeathAbility : PlayerAbility
     }
 
 
-public void Die()
+    public void Die()
     {
         if (IsDead) return;
         IsDead = true;
@@ -35,6 +35,12 @@ public void Die()
 
         _owner.GetAbility<PlayerMoveAbility>().enabled = false;
         _owner.GetAbility<PlayerAttackAbility>().enabled = false;
+
+        var scoreAbility = _owner.GetAbility<PlayerScoreAbility>();
+        if (scoreAbility != null)
+        {
+            scoreAbility.PenaltyScoreOnDeath();
+        }
 
         _owner.GetAbility<PlayerSpawnAbility>().RespawnAfterDelay();
     }
