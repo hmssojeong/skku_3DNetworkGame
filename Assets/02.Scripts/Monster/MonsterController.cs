@@ -1,6 +1,4 @@
-using NUnit.Framework;
 using System.Collections.Generic;
-using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -38,17 +36,34 @@ public class MonsterController : MonoBehaviour
         _agent = GetComponent<NavMeshAgent>();
         _originPos = transform.position;
 
-        if(_player == null)
-        {
-            _player = GameObject.FindGameObjectWithTag("Player");
-        }
+        TryFindPlayer();
 
         InitializePatrol();
         State = EMonsterState.Patrol;
+        MoveToNextPatrolPoint();
+    }
+
+    private void TryFindPlayer()
+    {
+        if (_player == null || !_player.activeInHierarchy)
+        {
+            // FindGameObjectWithTag는 비활성 오브젝트를 찾지 못함
+            // 활성화된 Player 오브젝트를 검색
+            GameObject found = GameObject.FindGameObjectWithTag("Player");
+            if (found != null && found.activeInHierarchy)
+            {
+                _player = found;
+            }
+            else
+            {
+                _player = null;
+            }
+        }
     }
 
     private void Update()
     {
+        TryFindPlayer();
         _animator.SetFloat("Move", _agent.velocity.magnitude);
 
         switch(State)
@@ -90,6 +105,12 @@ public class MonsterController : MonoBehaviour
 
     private void Trace()
     {
+        if (_player == null)
+        {
+            State = EMonsterState.Patrol;
+            return;
+        }
+
         float distanceToPlayer = Vector3.Distance(transform.position, _player.transform.position);
 
         if (distanceToPlayer <= _attackDistance)
@@ -109,13 +130,16 @@ public class MonsterController : MonoBehaviour
 
     private void Patrol()
     {
-        float distanceToPlayer = Vector3.Distance(transform.position, _player.transform.position);
-
-        if (distanceToPlayer <= _detectDistance)
+        if (_player != null)
         {
-            _isWaiting = false;
-            State = EMonsterState.Trace;
-            return;
+            float distanceToPlayer = Vector3.Distance(transform.position, _player.transform.position);
+
+            if (distanceToPlayer <= _detectDistance)
+            {
+                _isWaiting = false;
+                State = EMonsterState.Trace;
+                return;
+            }
         }
 
         if(!_agent.pathPending && _agent.remainingDistance <= _agent.stoppingDistance)
@@ -151,7 +175,18 @@ public class MonsterController : MonoBehaviour
                 0,
                 Random.Range(-_patrolRadius, _patrolRadius)
             );
-            _monsterPatrolPoints.Add(randomPoint);
+
+            // NavMesh 위의 유효한 좌표로 보정
+            if (NavMesh.SamplePosition(randomPoint, out NavMeshHit hit, _patrolRadius, NavMesh.AllAreas))
+            {
+                _monsterPatrolPoints.Add(hit.position);
+            }
+        }
+
+        // 유효한 포인트가 하나도 없으면 현재 위치를 기본값으로
+        if (_monsterPatrolPoints.Count == 0)
+        {
+            _monsterPatrolPoints.Add(_originPos);
         }
     }
 
@@ -167,6 +202,12 @@ public class MonsterController : MonoBehaviour
 
     private void Attack()
     {
+        if (_player == null)
+        {
+            State = EMonsterState.Patrol;
+            return;
+        }
+
         _agent.ResetPath();
 
         float distanceToPlayer = Vector3.Distance(transform.position, _player.transform.position);
@@ -198,7 +239,6 @@ public class MonsterController : MonoBehaviour
 
         State = EMonsterState.Hit;
         _animator.SetTrigger("Hit");
-
     }
 
     private void Death()
