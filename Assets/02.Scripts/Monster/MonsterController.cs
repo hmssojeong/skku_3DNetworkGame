@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Photon.Pun;
 
-public class MonsterController : MonoBehaviour
-{ 
+public class MonsterController : MonoBehaviour, IDamageable
+{
     [SerializeField] private float _detectDistance = 5f;
     [SerializeField] private float _attackDistance = 2f;
     [SerializeField] private float _returnDistance = 15f;
@@ -19,6 +20,8 @@ public class MonsterController : MonoBehaviour
     private float _patrolDelayTime = 0f;
     private bool _isWaiting = false;
 
+    private MonsterStat _stat;
+
     private Vector3 _originPos;
     private int _currentPatrolIndex = 0;
 
@@ -33,6 +36,7 @@ public class MonsterController : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
         _agent = GetComponent<NavMeshAgent>();
+        _stat = GetComponent<MonsterStat>();
         _originPos = transform.position;
 
         TryFindPlayer();
@@ -46,8 +50,6 @@ public class MonsterController : MonoBehaviour
     {
         if (_player == null || !_player.activeInHierarchy)
         {
-            // FindGameObjectWithTag는 비활성 오브젝트를 찾지 못함
-            // 활성화된 Player 오브젝트를 검색
             GameObject found = GameObject.FindGameObjectWithTag("Player");
             if (found != null && found.activeInHierarchy)
             {
@@ -176,14 +178,12 @@ public class MonsterController : MonoBehaviour
                 Random.Range(-_patrolRadius, _patrolRadius)
             );
 
-            // NavMesh 위의 유효한 좌표로 보정
             if (NavMesh.SamplePosition(randomPoint, out NavMeshHit hit, _patrolRadius, NavMesh.AllAreas))
             {
                 _monsterPatrolPoints.Add(hit.position);
             }
         }
 
-        // 유효한 포인트가 하나도 없으면 현재 위치를 기본값으로
         if (_monsterPatrolPoints.Count == 0)
         {
             _monsterPatrolPoints.Add(_originPos);
@@ -230,6 +230,41 @@ public class MonsterController : MonoBehaviour
         {
             _animator.SetTrigger("Attack");
             _attackTimer = 0f;
+        }
+    }
+
+    public void OnAttackHit()
+    {
+        if (_player == null) return;
+
+        float distanceToPlayer = Vector3.Distance(transform.position, _player.transform.position);
+        if (distanceToPlayer > _attackDistance * 1.5f) return;
+
+        var playerController = _player.GetComponent<PlayerController>();
+        if (playerController == null) return;
+
+        playerController.PhotonView.RPC(
+            nameof(PlayerController.TakeDamage),
+            RpcTarget.All,
+            _attackPower,
+            transform.position,
+            -1
+        );
+    }
+
+    public void TakeDamage(float damage, Vector3 attackerPosition, int attackerActorNumber)
+    {
+        if (State == EMonsterState.Death) return;
+
+        _stat.TakeDamage(damage);
+
+        if (_stat.IsDead)
+        {
+            Death();
+        }
+        else
+        {
+            Hit();
         }
     }
 
