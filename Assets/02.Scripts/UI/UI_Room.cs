@@ -40,6 +40,17 @@ public class UI_Room : MonoBehaviourPunCallbacks
             }
         }
 
+/*        foreach (var room in roomList)
+        {
+            if (room.RemovedFromList)
+            {
+                _rooms.Remove(room.Name);
+            }
+            else
+            {
+                _rooms[room.Name] = room;
+            }
+        }*/
 
         int roomCount = _rooms.Count;
         List<RoomInfo> rooms = _rooms.Values.ToList();

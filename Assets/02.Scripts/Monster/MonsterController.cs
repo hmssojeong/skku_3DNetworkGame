@@ -19,6 +19,7 @@ public class MonsterController : MonoBehaviour, IDamageable
     private float _patrolDelay = 3f;
     private float _patrolDelayTime = 0f;
     private bool _isWaiting = false;
+    private float _deathDelay = 6f;
 
     private MonsterStat _stat;
 
@@ -90,11 +91,9 @@ public class MonsterController : MonoBehaviour, IDamageable
                 break;
 
             case EMonsterState.Hit:
-                Hit();
                 break;
 
             case EMonsterState.Death:
-                Death();
                 break;
         }
     }
@@ -265,6 +264,7 @@ public class MonsterController : MonoBehaviour, IDamageable
         else
         {
             Hit();
+            State = EMonsterState.Trace;
         }
     }
 
@@ -274,6 +274,7 @@ public class MonsterController : MonoBehaviour, IDamageable
 
         State = EMonsterState.Hit;
         _animator.SetTrigger("Hit");
+        //State = EMonsterState.Trace;
     }
 
     private void Death()
@@ -281,5 +282,6 @@ public class MonsterController : MonoBehaviour, IDamageable
         State = EMonsterState.Death;
         _animator.SetTrigger("Death");
         _agent.isStopped = true;
+        Destroy(gameObject, _deathDelay);
     }
 }

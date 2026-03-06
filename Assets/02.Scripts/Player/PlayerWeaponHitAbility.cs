@@ -14,10 +14,16 @@ private void OnTriggerEnter(Collider other)
         {
             PlayerController otherPlayer = other.GetComponent<PlayerController>();
             int attackerActorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
+            if(otherPlayer != null)
+            {
+                otherPlayer.PhotonView.RPC(nameof(damageable.TakeDamage), RpcTarget.All, _owner.Stat.Damage, _owner.transform.position, attackerActorNumber);
+            }
+            else
+            {
+                damageable.TakeDamage(_owner.Stat.Damage, transform.position, attackerActorNumber);
+            }
 
-            otherPlayer.PhotonView.RPC(nameof(damageable.TakeDamage),RpcTarget.All,_owner.Stat.Damage,_owner.transform.position,attackerActorNumber);
-
-            _owner.GetAbility<PlayerWeaponColliderAbility>().DeactiveCollider();
+                _owner.GetAbility<PlayerWeaponColliderAbility>().DeactiveCollider();
         }
     }
 }

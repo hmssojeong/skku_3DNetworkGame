@@ -3,6 +3,8 @@ using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections;
+using ExitGames.Client.Photon;
 
 public class UI_Lobby : MonoBehaviour
 {
@@ -51,7 +53,11 @@ public class UI_Lobby : MonoBehaviour
         roomOptions.IsVisible = true; // 로비에서 룸을 보여줄 것인지
         roomOptions.IsOpen = true;    // 룸의 오픈 여부
 
-        Debug.Log($"[UI_Lobby] 방 만들기 시도 | 방 이름: {roomName} | 닉네임: {nickname}");
+        ExitGames.Client.Photon.Hashtable customRoomProps = new ExitGames.Client.Photon.Hashtable();
+        customRoomProps.Add("LeaderName", nickname);
+        roomOptions.CustomRoomProperties = customRoomProps;
+
+        roomOptions.CustomRoomPropertiesForLobby = new string[] { "LeaderName" };
 
         // 룸 만들기 
         PhotonNetwork.CreateRoom(roomName, roomOptions);

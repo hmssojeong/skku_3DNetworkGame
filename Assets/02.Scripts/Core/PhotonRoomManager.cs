@@ -26,8 +26,6 @@ public class PhotonRoomManager : MonoBehaviourPunCallbacks
     {
         _room = PhotonNetwork.CurrentRoom;
 
-        Debug.Log($"[PhotonRoomManager] OnJoinedRoom | IsMasterClient: {PhotonNetwork.IsMasterClient} | PlayerCount: {_room.PlayerCount}");
-
         OnDataChanged?.Invoke();
 
         if (PhotonNetwork.IsMasterClient)
@@ -52,20 +50,9 @@ public class PhotonRoomManager : MonoBehaviourPunCallbacks
         yield return new WaitForSeconds(delay);
 
         PhotonView[] allViews = FindObjectsOfType<PhotonView>();
-        Debug.Log($"[PhotonRoomManager] === 씬 내 모든 PhotonView ({allViews.Length}개) ===");
 
-        foreach (var view in allViews)
-        {
-            Debug.Log($"  - ViewID: {view.ViewID} | Owner: {view.Owner?.NickName} | GameObject: {view.gameObject.name} | Active: {view.gameObject.activeInHierarchy} | Pos: {view.transform.position}");
-        }
-
-        // 모든 Player 태그 오브젝트도 확인
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        Debug.Log($"[PhotonRoomManager] === Player 태그 오브젝트 ({players.Length}개) ===");
-        foreach (var p in players)
-        {
-            Debug.Log($"  - Name: {p.name} | Active: {p.activeInHierarchy} | Pos: {p.transform.position}");
-        }
+
     }
 
     public override void OnPlayerLeftRoom(Player player)
