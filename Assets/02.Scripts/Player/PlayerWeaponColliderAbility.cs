@@ -19,7 +19,7 @@ public class PlayerWeaponColliderAbility : PlayerAbility
         _collider.enabled = false;
     }
 
-public void OnTrigger(Collider other)
+public void OnTriggerEnter(Collider other)
     {
         if (!_owner.PhotonView.IsMine) return;
         if (other.CompareTag("Player")) return;

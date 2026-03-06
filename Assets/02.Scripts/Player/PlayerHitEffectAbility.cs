@@ -4,8 +4,9 @@ public class PlayerHitEffectAbility : PlayerAbility
 {
     private Animator _animator;
 
-    private void Start()
+    protected override void Awake()
     {
+        base.Awake();
         _animator = GetComponent<Animator>();
     }
 
@@ -28,6 +29,14 @@ public class PlayerHitEffectAbility : PlayerAbility
 
     private void HitAnimation()
     {
-        _animator.SetTrigger("OnHit");
+        if (_animator == null)
+        {
+            _animator = GetComponent<Animator>();
+        }
+
+        if (_animator != null)
+        {
+            _animator.SetTrigger("OnHit");
+        }
     }
 }
