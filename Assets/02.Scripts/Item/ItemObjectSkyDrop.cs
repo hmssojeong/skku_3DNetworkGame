@@ -9,7 +9,7 @@ public class ItemObjectSkyDrop : MonoBehaviourPunCallbacks
     [SerializeField] private float _minDropTime;
     [SerializeField] private float _maxDropTime;
 
-    public override void OnJoinedRoom()
+    private void Start()
     {
         if (!PhotonNetwork.IsMasterClient) return;
 
